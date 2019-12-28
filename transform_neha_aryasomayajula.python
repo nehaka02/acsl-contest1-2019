@@ -1,0 +1,67 @@
+# Neha Aryasomayajula
+#ACSL transform
+#Contest 1 2019-20
+#Acton Boxbourough Regional Highschool
+#Senior Division
+import os
+def prime_factors(n):
+    i = 2
+    factors = []
+    while i * i <= n:
+        if n % i:
+            i += 1
+        else:
+            n //= i
+            factors.append(i)
+    if n > 1:
+        factors.append(n)
+    res = []
+    for x in factors :
+        if x not in res:
+            res.append(x)
+    return len(res)
+
+
+def transform(x,y):
+    xstr = str(x)
+    xstrlen = len(xstr)
+    leftlist = []
+    rightlist = []
+    outputstr = ''
+    p = xstrlen - y
+    str_at_p = xstr[p]
+    int_at_p = int(str_at_p)
+    num_prime_factors = prime_factors(x)
+
+    for i in range(0,xstrlen):
+        if(i < p):
+            leftlist.append(int(xstr[i])+int_at_p)
+        elif(i > p):
+           rightlist.append(abs(int(xstr[i])-int_at_p))
+
+
+        i = i + 1
+    leftlist.append(num_prime_factors)
+    leftlist.extend(rightlist);
+
+    for i in range(0,len(leftlist)):
+        outputstr += str(leftlist[i])
+
+    outputint = int(outputstr)
+    return outputint
+
+
+def main():
+    with open("transform.out.txt","w+") as outputfp:
+        outputfp.write("Neha Aryasomayajula\n")
+        with open("transform.in.txt","r") as fp:
+            for line in fp:
+                x = line.split(",")
+                number = int(x[0])
+                pos = int(x[1])
+                val = transform(number,pos)
+                outputfp.write(str(val)+"\n")
+if __name__ == "__main__":
+    main()
+
+
